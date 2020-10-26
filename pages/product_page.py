@@ -4,7 +4,7 @@ from .locators import ProductPageLocators
 
 class ProductPage(BasePage):
     def add_to_basket(self):
-        link = self.browser.find_element(*ProductPageLocators.BASKET_LINK)
+        link = self.browser.find_element(*ProductPageLocators.BASKET_ADD_LINK)
         link.click()
 
     def price_in_basket(self):
