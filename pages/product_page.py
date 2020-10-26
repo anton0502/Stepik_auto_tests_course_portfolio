@@ -3,24 +3,24 @@ from .locators import ProductPageLocators
 
 
 class ProductPage(BasePage):
-    def go_to_product_page(self):
+    def add_to_basket(self):
         link = self.browser.find_element(*ProductPageLocators.BASKET_LINK)
         link.click()
 
     def price_in_basket(self):
-        product_price = self.browser.find_element(*ProductPageLocators.PRICE)
-        price = product_price.text
-        print(price)
-        price_in_basket_ = self.browser.find_element(*ProductPageLocators.PRICE_IN_BASKET)
-        price_in_basket = price_in_basket_.text
-        print(price_in_basket)
+        price = self.browser.find_element(*ProductPageLocators.PRICE).text
+        price_in_basket = self.browser.find_element(*ProductPageLocators.PRICE_IN_BASKET).text
         assert price == price_in_basket, f'цена продукта не равна цене в корзине'
 
     def product_in_basket(self):
-        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
-        product = product_name.text
-        print(product)
-        product_name_in_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_IN_BASKET)
-        product_in_basket = product_name_in_basket.text
-        print(product_in_basket)
+        product = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
+        product_in_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_IN_BASKET).text
         assert product == product_in_basket, f'имя продукта в корзине не совпадает с именем продукта на странице'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            f"Success message is presented, but should not be"
+
+    def should_disappeared_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            f"Success message is not disappeared"
